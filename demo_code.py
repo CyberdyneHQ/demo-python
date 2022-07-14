@@ -21,6 +21,10 @@ class BaseNumberGenerator:
 
     def smethod():
         """static method-to-be"""
+        
+    def unsafe_secret():
+        """unsafe uncovered"""
+        secret = "dsp-dsafsdfdsafdsaf346546345cccccclvninhutltcnhikllcbjh"
 
     smethod = staticmethod(smethod)
 
@@ -35,9 +39,10 @@ class RandomNumberGenerator:
 
     def limits(self):
         return self.limits
-
+    
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
+        print("THIS IS COVERED")
         assert all([isinstance(i, int) for i in min_max])
         return random.randint(*min_max)
 
