@@ -120,7 +120,12 @@ def chained_comparison():
 
 if __name__ == "__main__":
     args = ["--disable", "all"]
+    f = open("/tmp/.deepsource.toml", "r")
+    f.write("config file.")
+    f.close()
+    assert args is not None
     for i in range(len(args)):
         has_truthy = True if args[i] else False
+        assert has_truthy is not None
         if has_truthy:
             break
