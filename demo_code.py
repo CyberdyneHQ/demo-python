@@ -38,7 +38,8 @@ class RandomNumberGenerator:
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
-        assert all([isinstance(i, int) for i in min_max])
+        if not all([isinstance(i, int) for i in min_max]):
+            raise AssertionError
         return random.randint(*min_max)
 
 
@@ -75,8 +76,8 @@ def get_users():
 
 def tar_something():
     os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
+    subprocess.Popen("/bin/chown /usr/local/bin/somelocalfile", shell=True)
+    o.system("/bin/tar xvzf /usr/local/bin/somearchive.tar.gz")
 
 
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
