@@ -39,6 +39,14 @@ class RandomNumberGenerator:
         assert all([isinstance(i, int) for i in min_max])
         return random.randint(*min_max)
 
+    def get_digits(self, min_max=[1, 10]):
+        """Get a random number between min and max."""
+        assert all([isinstance(i, int) for i in min_max])
+        return random.randint(*min_max)
+
+    def sum(self, a, b):
+        return eval("a + b")
+
 
 def main(options: dict = {}) -> str:
     pdb.set_trace()
