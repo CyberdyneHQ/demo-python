@@ -88,23 +88,13 @@ def tar_something():
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
     if (
         initial_condition
-        and (
-            isinstance(object, int)
-            or isinstance(object, float)
-            or isinstance(object, str)
-        )
+        and isinstance(object, (int, float, str))
         and isinstance(other_obj, float)
         and isinstance(foo, str)
-        or (isinstance(bar, float) or isinstance(bar, str))
-        and (isinstance(baz, float) or isinstance(baz, int))
+        or isinstance(bar, (float, str))
+        and isinstance(baz, (float, int))
     ):
         pass
-
-
-def check(x):
-    if x == 1 or x == 2 or x == 3:
-        print("Yes")
-    elif x != 2 or x != 3:
         print("also true")
 
     elif x in (2, 3) or x in (5, 4):
