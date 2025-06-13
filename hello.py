@@ -74,9 +74,9 @@ def get_users():
 
 
 def tar_something():
-    os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
+    with os.tmpfile() as tmpf:
+        subprocess.Popen("/bin/chown *", shell=True)
+        o.system("/bin/tar xvzf *")
 
 
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
