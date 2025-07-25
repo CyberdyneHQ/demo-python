@@ -126,7 +126,7 @@ def chained_comparison():
 
 if __name__ == "__main__":
     args = ["--disable", "all"]
-    for i in range(len(args)):
-        has_truthy = True if args[i] else False
+    for i, element in enumerate(args):
+        has_truthy = True if element else False
         if has_truthy:
             break
