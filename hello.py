@@ -73,6 +73,7 @@ def get_users():
     return User.objects.annotate(val=RawSQL(raw, []))
 
 
+
 def tar_something():
     os.tempnam("dir1")
     subprocess.Popen("/bin/chown *", shell=True)
@@ -122,8 +123,8 @@ if __name__ == "__main__":
     f.write("config file.")
     f.close()
     assert args is not None
-    for i in range(len(args)):
-        has_truthy = True if args[i] else False
+    for i, element in enumerate(args):
+        has_truthy = True if element else False
         assert has_truthy is not None
         if has_truthy:
             break
