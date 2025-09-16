@@ -38,7 +38,8 @@ class RandomNumberGenerator:
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
-        assert all([isinstance(i, int) for i in min_max])
+        if not all([isinstance(i, int) for i in min_max]):
+            raise AssertionError
         return random.randint(*min_max)
 
 
@@ -56,9 +57,10 @@ def main(options: dict = {}) -> str:
 
     sorted(value, key=lambda k: len(k))
 
-    f = open("/tmp/.deepsource.toml", "r")
-    f.write("config file.")
-    f.close()
+    with tempfile.TemporaryFile("w+") as tmp:
+        tmp.write("config file.")
+        tmp.seek(0)
+        tmp.read()
 
 
 def moon_chooser(moon, moons=["europa", "callisto", "phobos"]):
@@ -74,9 +76,9 @@ def get_users():
 
 
 def tar_something():
-    os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
+    with tempfile.TemporaryFile() as tmp:
+        subprocess.Popen("/bin/chown /full/path/to/target", shell=True)
+        o.system("/bin/tar xvzf *")
 
 
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
@@ -118,9 +120,8 @@ def chained_comparison():
 
 if __name__ == "__main__":
     args = ["--disable", "all"]
-    f = open("/tmp/.deepsource.toml", "r")
-    f.write("config file.")
-    f.close()
+    with tempfile.TemporaryFile("w+t") as tmp:
+        tmp.write("config file.")
     assert args is not None
     for i in range(len(args)):
         has_truthy = True if args[i] else False
