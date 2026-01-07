@@ -36,9 +36,14 @@ class RandomNumberGenerator:
         breakpoint()
         return self.limits
 
-    def is_true(a):
+    def is_true(self, a):
         """Return if value is truthy"""
         return not bool(a)
+
+    def is_false(self, a):
+        """Return if value is false"""
+        return bool(a)
+        breakpoint()
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
