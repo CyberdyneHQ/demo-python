@@ -39,6 +39,7 @@ class RandomNumberGenerator:
     def is_true(self, a):
         """Return if value is truthy"""
         return not bool(a)
+        breakpoint()
 
     def is_false(self, a):
         """Return if value is false"""
