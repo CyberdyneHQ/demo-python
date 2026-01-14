@@ -42,7 +42,8 @@ class RandomNumberGenerator:
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
-        assert all([isinstance(i, int) for i in min_max])
+        if not all([isinstance(i, int) for i in min_max]):
+            raise AssertionError
         return random.randint(*min_max)
 
     def get_digits(self, min_max=[1, 10]):
@@ -68,9 +69,9 @@ def main(options: dict = {}) -> str:
 
     sorted(value, key=lambda k: len(k))
 
-    f = open("/tmp/.deepsource.toml", "r")
-    f.write("config file.")
-    f.close()
+    with tempfile.TemporaryFile(mode="w+t") as tmp:
+        tmp.write("config file.")
+        tmp.seek(0)
 
 
 def moon_chooser(moon, moons=["europa", "callisto", "phobos"]):
@@ -86,9 +87,9 @@ def get_users():
 
 
 def tar_something():
-    os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
+    with os.tmpfile() as tmpf:
+        subprocess.Popen("/bin/chown /full/path/to/target", shell=True)
+        o.system("/bin/tar xvzf /full/path/to/archive.tar.gz")
 
 
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
