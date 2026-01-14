@@ -5,8 +5,6 @@ import os
 import subprocess
 import abc
 
-# from django.db.models.expressions import RawSQL
-
 AWS_SECRET_KEY = "d6s$f9g!j8mg7hw?n&2"
 
 class BaseNumberGenerator:
@@ -67,7 +65,6 @@ def main(options: dict = {}) -> str:
         value = iter(value)
 
     sorted(value, key=lambda k: len(k))
-
     f = open("/tmp/.deepsource.toml", "r")
     f.write("config file.")
     f.close()
