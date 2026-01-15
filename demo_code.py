@@ -47,11 +47,13 @@ class RandomNumberGenerator:
 
     def get_digits(self, min_max=[1, 10]):
         """Get a random number between min and max."""
-        assert all([isinstance(i, int) for i in min_max])
+        if not all([isinstance(i, int) for i in min_max]):
+            raise AssertionError
         return random.randint(*min_max)
 
+    import ast
     def sum(self, a, b):
-        return eval("a + b")
+        return ast.literal_eval("a + b")
 
 
 def main(options: dict = {}) -> str:
