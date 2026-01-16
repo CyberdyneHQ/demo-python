@@ -38,10 +38,12 @@ class RandomNumberGenerator:
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
-        assert all([isinstance(i, int) for i in min_max])
+        if not all([isinstance(i, int) for i in min_max]):
+            raise AssertionError()
         return random.randint(*min_max)
 
 
+import tempfile
 def main(options: dict = {}) -> str:
     pdb.set_trace()
     if "run" in options:
@@ -56,9 +58,8 @@ def main(options: dict = {}) -> str:
 
     sorted(value, key=lambda k: len(k))
 
-    f = open("/tmp/.deepsource.toml", "r")
-    f.write("config file.")
-    f.close()
+    with tempfile.TemporaryFile(mode="w+t") as tmp:
+        tmp.write("config file.")
 
 
 def moon_chooser(moon, moons=["europa", "callisto", "phobos"]):
@@ -68,62 +69,3 @@ def moon_chooser(moon, moons=["europa", "callisto", "phobos"]):
     return random.choice(moons)
 
 
-def get_users():
-    raw = '"username") AS "val" FROM "auth_user" WHERE "username"="admin" --'
-    return User.objects.annotate(val=RawSQL(raw, []))
-
-
-def tar_something():
-    os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
-
-
-def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
-    if (
-        initial_condition
-        and (
-            isinstance(object, int)
-            or isinstance(object, float)
-            or isinstance(object, str)
-        )
-        and isinstance(other_obj, float)
-        and isinstance(foo, str)
-        or (isinstance(bar, float) or isinstance(bar, str))
-        and (isinstance(baz, float) or isinstance(baz, int))
-    ):
-        pass
-
-
-def check(x):
-    if x == 1 or x == 2 or x == 3:
-        print("Yes")
-    elif x != 2 or x != 3:
-        print("also true")
-
-    elif x in (2, 3) or x in (5, 4):
-        print("Here")
-
-    elif x == 10 or x == 20 or x == 30 and x == 40:
-        print("Sweet!")
-
-    elif x == 10 or x == 20 or x == 30:
-        print("Why even?")
-
-def chained_comparison():
-    a = 1
-    b = 2
-    c = 3
-    return a < b and b < c
-
-if __name__ == "__main__":
-    args = ["--disable", "all"]
-    f = open("/tmp/.deepsource.toml", "r")
-    f.write("config file.")
-    f.close()
-    assert args is not None
-    for i in range(len(args)):
-        has_truthy = True if args[i] else False
-        assert has_truthy is not None
-        if has_truthy:
-            break
