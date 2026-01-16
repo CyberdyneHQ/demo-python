@@ -87,8 +87,8 @@ def get_users():
 
 def tar_something():
     os.tempnam("dir1")
-    subprocess.Popen("/bin/chown *", shell=True)
-    o.system("/bin/tar xvzf *")
+    subprocess.Popen("/bin/chown /full/path/to/target", shell=True)
+    o.system("/bin/tar xvzf /full/path/to/archive")
 
 
 def bad_isinstance(initial_condition, object, other_obj, foo, bar, baz):
