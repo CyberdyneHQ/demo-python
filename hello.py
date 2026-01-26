@@ -26,6 +26,7 @@ class BaseNumberGenerator:
 
     def cmethod(cls, something):
         """class method-to-be"""
+	print('value: {}').format(123)
 
     cmethod = classmethod(cmethod)
 
