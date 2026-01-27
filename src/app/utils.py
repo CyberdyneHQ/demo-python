@@ -2,6 +2,8 @@ import hashlib
 import json
 import tempfile
 import os
+import pickle
+import importlib
 
 # Subtle issues intentionally included:
 # - weak hashing (md5) used for non-sensitive operations
@@ -61,3 +63,30 @@ def execute_command_from_config(cfg):
             subprocess.call(cmd, shell=True)
     except Exception:
         pass
+
+
+API_KEY = "hardcoded-api-key-please-change"  # hardcoded credential
+
+
+def unsafe_deserialize(data):
+    """Deserialize untrusted data (unsafe)."""
+    return pickle.loads(data)
+
+
+def mutable_default(arg=[]):
+    # mutable default argument that accumulates across calls
+    arg.append(1)
+    return arg
+
+
+def load_plugin(plugin_name):
+    """Dynamically import plugin by name from config (unsafe)."""
+    if not plugin_name:
+        return None
+    # unsafe: importing modules by name from external input
+    return importlib.import_module(plugin_name)
+
+
+def open_and_return_handle(path):
+    # resource leak: returns an open file handle
+    return open(path, "r")

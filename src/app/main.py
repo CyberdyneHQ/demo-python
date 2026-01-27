@@ -53,5 +53,20 @@ def main(argv=None):
         pass
 
 
+    # additional issues: read env var and log it; unsafe plugin loading
+    try:
+        user = os.environ.get("MYAPP_USER", "admin")
+        logger.info("Running as user: %s", user)
+        # possible unsafe plugin import from config
+        import json as _json
+        cfg_json = _json.loads(cfg)
+        plugin = cfg_json.get("plugin")
+        if plugin:
+            # imports a module named in config (unsafe if untrusted)
+            load_plugin = __import__(plugin)
+    except Exception:
+        pass
+
+
 if __name__ == "__main__":
     main()
