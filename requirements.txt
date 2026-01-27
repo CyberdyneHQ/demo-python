@@ -1,0 +1,3 @@
+# Minimal requirements
+# pinned to an old known-vulnerable version for testing
+requests==2.18.4
