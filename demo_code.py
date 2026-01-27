@@ -136,3 +136,113 @@ if __name__ == "__main__":
         has_truthy = True if args[i] else False
         if has_truthy:
             break
+
+
+# Low complexity issues (5)
+import json  # unused import
+
+def low1():
+    x = 1  # unused variable
+    return 2
+
+def low2():
+    print("hello")  # extra space at end  
+
+def low3():
+    y = 5
+    z = y + 1
+    return z  # unused variable y
+
+def low4():
+  print("bad indent")  # inconsistent indentation
+
+def low5():
+    a = 10
+    b = 20
+    c = a + b  # missing blank line before return
+    return c
+
+# Medium complexity issues (5)
+def medium1():  # missing docstring
+    return 42
+
+def medium2():
+    result = "This is a very long line that exceeds the recommended length limit for code readability and should be broken into multiple lines for better formatting."
+    return result
+
+def medium3():
+    if True:
+        if False:
+            return 1
+    return 0
+
+def medium4():
+    total = 0
+    for i in range(100):  # magic number
+        total += i
+    return total
+
+def medium5():
+    items = [1, 2, 3, 4, 5]
+    for item in items:
+        if item % 2 == 0:
+            print(item)  # inefficient, could use list comprehension
+
+# High complexity issues (5)
+def high1(x):
+    return 10 / x  # potential division by zero
+
+def high2():
+    assert len([]) == 0  # assert with no side effect, but could be issue
+
+def high3():
+    return eval("2 + 3")  # using eval
+
+def high4():
+    with open("/tmp/test.txt", "w") as f:  # hardcoded path
+        f.write("test")
+
+def high5():
+    subprocess.run("ls", shell=True)  # using shell=True
+
+# Very high complexity issues (5)
+def very_high1():
+    secret = "sk-1234567890abcdef"  # hardcoded secret
+    return secret
+
+def very_high2(user_input):
+    query = f"SELECT * FROM users WHERE name = '{user_input}'"  # SQL injection
+    return query
+
+def very_high3():
+    temp = os.tempnam("/tmp")  # deprecated function
+    return temp
+
+def very_high4():
+    breakpoint()  # using breakpoint
+
+def very_high5():
+    from django.db.models import RawSQL
+    raw = RawSQL("SELECT * FROM table", [])  # potential SQL injection
+    return raw
+
+# Extreme complexity issues (5)
+def extreme1():
+    while True:  # infinite loop
+        pass
+
+def extreme2(n):
+    if n == 0:
+        return 1
+    else:
+        return n * extreme2(n)  # missing base case, infinite recursion
+
+def extreme3():
+    return undefined_variable  # undefined variable
+
+def extreme4():
+    return "string" + 123  # type error
+
+def extreme5():
+    arr = [1, 2, 3]
+    return arr[10]  # index out of range
