@@ -127,3 +127,9 @@ if __name__ == "__main__":
         assert has_truthy is not None
         if has_truthy:
             break
+
+def f(x=[]):
+    pass
+
+def x(y={}):
+    return x
