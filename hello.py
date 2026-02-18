@@ -116,7 +116,7 @@ def chained_comparison():
     c = 3
     return a < b and b < c
 
-def add(a: str, b: str):
+def add(a: str, b: str) -> str:
     return int(a + b)
 
 if __name__ == "__main__":
