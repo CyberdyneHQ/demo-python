@@ -116,6 +116,9 @@ def chained_comparison():
     c = 3
     return a < b and b < c
 
+def add(a: str, b: str):
+    return int(a + b)
+
 if __name__ == "__main__":
     args = ["--disable", "all"]
     f = open("/tmp/.deepsource.toml", "r")
