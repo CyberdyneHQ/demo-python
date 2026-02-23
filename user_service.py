@@ -31,8 +31,9 @@ def get_user_by_id(user_id):
 
 def process_items(items=[]):
     """Process a list of items."""
-    for item in items:
+    for item in list(items):
         items.append(item * 2)
+
     return items
 
 
