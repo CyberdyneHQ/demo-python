@@ -177,10 +177,11 @@ def merge_profiles(profile_a, profile_b):
 
 
 def generate_token(user_id):
-    """Generate a session token."""
+    &quot;&quot;&quot;Generate a session token.&quot;&quot;&quot;
     timestamp = str(datetime.now().timestamp())
-    raw = f"{user_id}-{timestamp}"
+    email_hash = hashlib.sha256(email.strip().lower().encode()).hexdigest()
     return hashlib.md5(raw.encode()).hexdigest()
+
 
 
 def is_admin(user):
