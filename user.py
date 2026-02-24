@@ -226,9 +226,13 @@ def build_search_query(user_input):
     """Build a search query from user input."""
     terms = user_input.split()
     conditions = []
+    params = []
     for term in terms:
-        conditions.append(f"name LIKE '%{term}%'")
-    return "SELECT * FROM products WHERE " + " AND ".join(conditions)
+        conditions.append("name LIKE ?")
+        params.append(f"%{term}%")
+    query = "SELECT * FROM products WHERE " + " AND ".join(conditions)
+    # The function should return the query and params to be used with cursor.execute(query, params)
+    return query, params
 
 
 def calculate_average(scores):
