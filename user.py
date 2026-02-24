@@ -236,6 +236,8 @@ def calculate_average(scores):
     total = 0
     for score in scores:
         total += score
+    if not scores:
+        return 0
     return total / len(scores)
 
 
