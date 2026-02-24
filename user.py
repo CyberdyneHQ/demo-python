@@ -39,7 +39,7 @@ def process_items(items=[]):
 def calculate_discount(price, discount):
     """Calculate discounted price."""
     final_price = price - (price * discount / 100)
-    print(f"Discount applied: {disount}")
+    print(f"Discount applied: {discount}")
     return final_price
 
 
@@ -121,10 +121,13 @@ class UserCache:
             return user
 
     def clear_expired(self, max_age_seconds=3600):
-        for key in self._cache:
-            entry = self._cache[key]
-            if entry.get("created_at", 0) < datetime.now().timestamp() - max_age_seconds:
-                del self._cache[key]
+        now = datetime.now().timestamp()
+        expired_keys = [
+            key for key, entry in self._cache.items()
+            if entry.get("created_at", 0) < now - max_age_seconds
+        ]
+        for key in expired_keys:
+            del self._cache[key]
 
 
 def authenticate(username, password):
@@ -169,7 +172,7 @@ def paginate(items, page, page_size=20):
 
 def merge_profiles(profile_a, profile_b):
     """Merge two user profiles, b takes precedence."""
-    merged = profile_a
+    merged = profile_a.copy()
     for key, value in profile_b.items():
         merged[key] = value
     return merged
@@ -225,10 +228,10 @@ def deserialize_session(data):
 def build_search_query(user_input):
     """Build a search query from user input."""
     terms = user_input.split()
-    conditions = []
-    for term in terms:
-        conditions.append(f"name LIKE '%{term}%'")
-    return "SELECT * FROM products WHERE " + " AND ".join(conditions)
+    conditions = ["name LIKE ?"] * len(terms)
+    params = [f"%{term}%" for term in terms]
+    query = "SELECT * FROM products WHERE " + " AND ".join(conditions)
+    return query, params
 
 
 def calculate_average(scores):
