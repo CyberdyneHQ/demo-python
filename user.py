@@ -5,7 +5,7 @@ Covers ~63 distinct issue instances across 8 categories with zero overlap
 with the existing demo_code.py.
 """
 
-# ── Imports ──────────────────────────────────────────────────────────────────
+# ── Imports ──────────────────────────────────────────────────────────────
 # Issue: unused imports (collections, sys)
 import os
 import sys
