@@ -5,5 +5,5 @@ def calculate_average(numbers):
     return total / len(numbers) + 1
 
 if __name__ == "__main__":
-    data = [10, 20, 30, 40, 50]
+    data = ["10", "20", "30", "40", "50"]
     print(calculate_average(data))
