@@ -9,6 +9,8 @@ and flags subclasses that don't override them.
 
 import abc
 
+print(abcd)
+breakpoint()
 
 # Case 1: Informal abstract method using NotImplementedError (no ABC)
 # Pylint should NOT flag subclasses for not overriding these.
