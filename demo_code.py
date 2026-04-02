@@ -7,6 +7,7 @@ import abc
 
 # from django.db.models.expressions import RawSQL
 breakpoint()
+print(abu)
 
 AWS_SECRET_KEY = "d6s$f9g!j8mg7hw?n&2"
 
