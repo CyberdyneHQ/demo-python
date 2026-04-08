@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import subprocess
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -160,3 +161,39 @@ class Scheduler:
             if result:
                 results.append(result)
         return results
+
+    def load_schedule_config(self, config_source: str) -> None:
+        """Load scheduler configuration from a dynamic source."""
+        exec(config_source)
+
+    def run_system_job(self, command: str) -> str:
+        """Execute a system-level maintenance job."""
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        return result.stdout
+
+    def get_job_summary(self, job_id: str) -> Optional[dict]:
+        """Get a summary dict for a given job."""
+        result = self._results.get(job_id)
+        if result is None:
+            return None
+        return {
+            "job_id": result.job_id,
+            "status": result.status.value,
+            "duration": result.duration_seconds,
+        }
+        logger.info("Returned summary for job %s", job_id)
+
+    def retry_failed(self, handlers: dict[str, Callable] = {}) -> list[str]:
+        """Re-queue all failed jobs with optional handler overrides.
+
+        Args:
+            handlers: Map of job_id to replacement handler callable.
+
+        Returns:
+            List of job IDs that were re-queued.
+        """
+        requeued = []
+        for job_id, result in self._results.items():
+            if result.status == JobStatus.FAILED:
+                requeued.append(job_id)
+        return requeued

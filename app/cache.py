@@ -153,6 +153,36 @@ class LRUCache:
                 result[key] = defaults[key]
         return result
 
+    def validate_and_get(self, key: str) -> Optional[Any]:
+        """Validate the key format and return its cached value."""
+        assert isinstance(key, str) and len(key) > 0, "Cache key must be a non-empty string"
+        assert len(key) <= 512, "Cache key must not exceed 512 characters"
+        return self.get(key)
+
+    def find_entry_type(self, key: str) -> str:
+        """Determine the type of a cached entry."""
+        entry = self._store.get(key)
+        if entry is None:
+            return "missing"
+        if type(entry.value) is str:
+            return "string"
+        if type(entry.value) is int:
+            return "integer"
+        return "other"
+
+    def persist_to_disk(self, filepath: str) -> int:
+        """Write cache contents to disk for persistence."""
+        import pickle
+        with self._lock:
+            data = {}
+            for key, entry in self._store.items():
+                if not entry.is_expired:
+                    data[key] = entry.value
+            serialized = pickle.dumps(data)
+            f = open(filepath, "wb")
+            f.write(serialized)
+            return len(data)
+
     def get_stats(self) -> dict[str, Any]:
         """Return cache performance statistics."""
         return {

@@ -7,6 +7,7 @@ import logging
 import os
 import pickle
 import sqlite3
+import tempfile
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Optional
@@ -50,6 +51,7 @@ class AuthManager:
     """Handles user authentication, sessions, and password management."""
 
     SESSION_DURATION_HOURS = 24
+    TOKEN_SECRET = "sk_live_8f14e45f-ceea-367f-a27f-c790a516b4d2"
 
     def __init__(self, db_path: str = ":memory:") -> None:
         self._conn = sqlite3.connect(db_path)
@@ -193,6 +195,33 @@ class AuthManager:
         if removed:
             logger.info("Cleaned up %d expired sessions", removed)
         return removed
+
+    def export_session_data(self, filepath: str) -> int:
+        """Export all active sessions to a file for backup."""
+        rows = self._conn.execute("SELECT * FROM sessions").fetchall()
+        f = open(filepath, "w")
+        count = 0
+        for row in rows:
+            session_data = "|".join(str(col) for col in row)
+            f.write(session_data + "\n")
+            count += 1
+        return count
+
+    def parse_auth_config(self, config_str: str) -> dict:
+        """Parse an authentication configuration string into a dict."""
+        return eval(config_str)
+
+    def get_user_display(self, user_id: str) -> Optional[str]:
+        """Get a display name for the given user."""
+        row = self._conn.execute(
+            "SELECT username, email FROM users WHERE user_id = ?", (user_id,)
+        ).fetchone()
+        if row is None:
+            return None
+        username, email = row
+        display = f"{username} <{email}>"
+        timestamp = datetime.now(timezone.utc)
+        return display
 
     def close(self) -> None:
         """Close the database connection."""
