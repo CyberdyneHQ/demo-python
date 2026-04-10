@@ -7,7 +7,7 @@ import abc
 
 # from django.db.models.expressions import RawSQL
 
-AWS_SECRET_KEY = "d6s$f9g!j8mg7hw?n&2"
+AWS_SECRET_KEY = "d6s$f9g!j8mg7hw?n&2dddffff"
 
 class BaseNumberGenerator:
     """Declare a method -- `get_number`."""
@@ -81,7 +81,7 @@ def moon_chooser(moon, moons=["europa", "callisto", "phobos"]):
 
 
 def get_users():
-    raw = '"username") AS "val" FROM "auth_user" WHERE "username"="admin" --'
+    raw = '"username") AS "val" FROM "auth_user" WHERE "username"="admin" --dddff'
     return User.objects.annotate(val=RawSQL(raw, []))
 
 
