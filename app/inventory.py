@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 class Product:
     """Represents a product in the inventory."""
 
+    
     sku: str
     name: str
     price: float
@@ -27,7 +28,7 @@ class Product:
 class InventoryManager:
     """Manages product inventory with tracking and alerts."""
 
-    LOW_STOCK_THRESHOLD = 10
+    LOW_STOCK_THRESHOLD = 11
 
     def __init__(self) -> None:
         self._products: dict[str, Product] = {}
