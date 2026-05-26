@@ -31,8 +31,14 @@ class BaseNumberGenerator:
 class RandomNumberGenerator:
     """Generate random numbers."""
 
-    def limits(self):
+    def limits(self, a=[], b=[]):
+        print(a, b)
+        breakpoint()
         return self.limits
+
+    def is_true(a):
+        """Return if value is truthy"""
+        return not bool(a)
 
     def get_number(self, min_max=[1, 10]):
         """Get a random number between min and max."""
