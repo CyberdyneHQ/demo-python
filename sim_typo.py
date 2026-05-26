@@ -1,7 +1,6 @@
-"""Scenario A demo file — typo on local feature branch (P1)."""
+"""Scenario A demo file — typo fixed on origin/<feature> (P2)."""
 
 
-def fetch_user_profle(user_id):  # NOTE: 'profle' is the typo
-    """Return user info; misspelled function name should be flagged."""
-    unused_local = 42  # also has an unused local
+def fetch_user_profile(user_id):  # NOTE: 'profile' is now correctly spelled
+    """Return user info; renamed to fix the typo."""
     return {"id": user_id, "active": True}
