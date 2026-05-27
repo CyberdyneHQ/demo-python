@@ -1,0 +1,7 @@
+- hosts: localhost
+  become: true
+  tasks:
+    - name: install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present

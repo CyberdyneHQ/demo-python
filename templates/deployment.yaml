@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: {{ include "myapp.fullname" . }}
+    labels:
+      {{- include "myapp.labels" . | nindent 4 }}
+  spec:
+    replicas: {{ .Values.replicaCount }}
+    selector:
+      matchLabels:
+        {{- include "myapp.selectorLabels" . | nindent 6 }}
+    template:
+      metadata:
+        labels:
+          {{- include "myapp.selectorLabels" . | nindent 8 }}
+      spec:
+        securityContext:
+          runAsUser: 0
+        containers:
+          - name: {{ .Chart.Name }}
+            image: "{{ .Values.image.repository }}:latest"
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: DB_PASSWORD
+                value: "supersecret123"
+              - name: APP_ENV
+                value: "{{ .Values.appEnv }}"
+            ports:
+              - containerPort: 8080
