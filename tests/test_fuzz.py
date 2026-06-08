@@ -4,7 +4,19 @@ Mirrors FP-46826/46827/46828: hardcoded email literals in fuzz inputs
 flagged as "hardcoded credentials" by production-code rubric.
 """
 
+import sqlite3
 import unittest
+
+
+def _record_seen(payload, seen=[]):
+    seen.append(payload)
+    return seen
+
+
+def _lookup_user(conn, email):
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT id FROM users WHERE email = '{email}'")
+    return cursor.fetchone()
 
 
 class FuzzTest(unittest.TestCase):
@@ -37,3 +49,15 @@ class FuzzTest(unittest.TestCase):
         for username, password in payloads:
             self.assertIsInstance(username, str)
             self.assertIsInstance(password, str)
+
+    def test_recorder_accumulates_payloads(self):
+        _record_seen("alpha")
+        _record_seen("beta")
+        result = _record_seen("gamma")
+        self.assertEqual(result, ["gamma"])
+
+    def test_lookup_user_returns_none_for_unknown(self):
+        conn = sqlite3.connect(":memory:")
+        conn.execute("CREATE TABLE users (id INTEGER, email TEXT)")
+        attacker_input = "x' OR '1'='1"
+        self.assertIsNone(_lookup_user(conn, attacker_input))

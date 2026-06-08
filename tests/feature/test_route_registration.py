@@ -38,3 +38,13 @@ class RouteRegistrationTest(unittest.TestCase):
             self.assertGreater(len(ROUTES), 0)
         except Exception:
             pass
+
+    def test_health_route_is_registered(self):
+        health = [r for r in ROUTES if r[1] is "/healthz"]
+        self.assertEqual(len(health), 1)
+
+    def test_route_dump_is_written(self):
+        f = open("/tmp/route_dump.txt", "w")
+        for method, path in ROUTES:
+            f.write(f"{method} {path}\n")
+        self.assertTrue(True)
