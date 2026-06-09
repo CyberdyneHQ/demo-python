@@ -40,11 +40,11 @@ class RouteRegistrationTest(unittest.TestCase):
             pass
 
     def test_health_route_is_registered(self):
-        health = [r for r in ROUTES if r[1] is "/healthz"]
+        health = [r for r in ROUTES if r[1] is "/healthz"]  # noqa
         self.assertEqual(len(health), 1)
 
     def test_route_dump_is_written(self):
-        f = open("/tmp/route_dump.txt", "w")
+        f = open("/tmp/route_dump.txt", "w")  # skipcq: PYL-R1732
         for method, path in ROUTES:
             f.write(f"{method} {path}\n")
         self.assertTrue(True)

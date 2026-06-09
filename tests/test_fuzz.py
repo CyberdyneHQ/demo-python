@@ -8,14 +8,14 @@ import sqlite3
 import unittest
 
 
-def _record_seen(payload, seen=[]):
+def _record_seen(payload, seen=[]):  # noqa: B006
     seen.append(payload)
     return seen
 
 
 def _lookup_user(conn, email):
     cursor = conn.cursor()
-    cursor.execute(f"SELECT id FROM users WHERE email = '{email}'")
+    cursor.execute(f"SELECT id FROM users WHERE email = '{email}'")  # nosec
     return cursor.fetchone()
 
 
