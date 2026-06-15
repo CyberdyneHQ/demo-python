@@ -1,0 +1,60 @@
+.button {
+  color: red;
+  background: #fff;
+  color: blue;
+  padding: 10px;
+}
+
+.card {
+  bacground-color: #eee;
+  margin: 0px;
+  border: 1px solid #ccc;
+}
+
+.alert {
+  color: #1234e;
+}
+
+.banner {
+  background-color: #336699;
+  background: url("hero.png") no-repeat;
+}
+
+.nav a {
+  color: #333 !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+}
+
+.sidebar {
+}
+
+.box {
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.flex-item {
+  display: flex;
+  float: left;
+}
+
+.modal {
+  position: absolute;
+  z-index: 99999;
+}
+
+.footer {
+  padding: 20px;
+}
+.footer {
+  padding: 40px;
+}
+
+.hero {
+  width: 100;
+  height: 50%;
+}
+
+* {
+  transition: all 0.3s ease;
+}
